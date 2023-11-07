@@ -45,5 +45,9 @@ def calculator(request):
         max_rate = provider.aggregate(max_sell=Max("sell"))["max_sell"]
         # calculate answer
         answer = amount * max_rate
-        return render(request, "calculator.html", {"answer": answer})
+        return render(request, "answer.html", {"answer": answer})
     return render(request, "calculator.html")
+
+
+def answer(request):
+    return render(request, "answer.html", {"answer": answer})
