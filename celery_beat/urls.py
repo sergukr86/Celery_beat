@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from currency.views import main
+from currency.views import main, calculator
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("exchange-rates/", main),
+    path("calculator/", calculator),
 ]
