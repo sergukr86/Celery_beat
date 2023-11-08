@@ -50,7 +50,7 @@ def calculator(request):
         max_rate = round(provider.aggregate(max_sell=Max("sell"))["max_sell"], 3)
         bank = provider.get(sell=max_rate)
         # calculate answer
-        answer = float(amount) * float(max_rate)
+        answer = round(amount * max_rate, 2)
         messages.success(request, f"BANK: {bank.vendor}")
         return render(
             request,
