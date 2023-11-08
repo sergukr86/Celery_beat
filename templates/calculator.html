@@ -4,3 +4,9 @@
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
+<div>
+    Після обміну {{ amount }} {{ currency_from }} Ви отримаєте: {{ answer }} {{ currency_to }}<br><br>
+</div>
+<div>
+    Ваш максимальний курс: {{ max_rate }} Фінансова устаннова: {{ bank.vendor }}
+</div>

@@ -1,9 +1,11 @@
 from django import forms
 
-from .models import Calculator
+
+CHOICES = [("EUR", "EUR"), ("USD", "USD"), ("UAH", "UAH")]
+# CHOICES = ("EUR", "USD", "UAH")
 
 
-class CalculatorForm(forms.ModelForm):
-    class Meta:
-        model = Calculator
-        fields = ["currency_from", "currency_to", "amount"]
+class CalculatorForm(forms.Form):
+    currency_from = forms.ChoiceField(widget=forms.Select, choices=CHOICES)
+    currency_to = forms.ChoiceField(widget=forms.Select, choices=CHOICES)
+    amount = forms.IntegerField()

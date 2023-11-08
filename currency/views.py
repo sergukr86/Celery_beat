@@ -1,11 +1,11 @@
 import datetime
 
-from django.http import JsonResponse
-from django.shortcuts import render
 from django.db.models import Max
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
 
-from .models import Rate
 from .forms import CalculatorForm
+from .models import Rate
 
 
 def main(request):
@@ -42,12 +42,18 @@ def calculator(request):
             cur_from=currency_from, cur_to=currency_to, date=date
         )
         # filter by max rate
-        max_rate = provider.aggregate(max_sell=Max("sell"))["max_sell"]
+        max_rate = round(provider.aggregate(max_sell=Max("sell"))["max_sell"], 3)
+        bank = provider.get(sell=max_rate)
         # calculate answer
-        answer = amount * max_rate
-        return render(request, "answer.html", {"answer": answer})
-    return render(request, "calculator.html")
+        answer = float(amount) * float(max_rate)
+        return render(request,"calculator.html",
+                      {"answer": answer,
+                       "form": form,
+                       "amount": amount,
+                       "max_rate": max_rate,
+                       "currency_from": currency_from,
+                       "currency_to": currency_to,
+                       "bank": bank
+        })
+    return redirect("calculator")
 
-
-def answer(request):
-    return render(request, "answer.html", {"answer": answer})

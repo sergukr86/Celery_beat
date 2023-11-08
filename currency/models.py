@@ -9,9 +9,3 @@ class Rate(models.Model):
     sell = models.DecimalField(decimal_places=4, max_digits=9)
     buy = models.DecimalField(decimal_places=4, max_digits=9)
     date = models.DateField()
-
-
-class Calculator(models.Model):
-    currency_from = models.CharField(max_length=3)
-    currency_to = models.CharField(max_length=3)
-    amount = models.IntegerField()
