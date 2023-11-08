@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+{% block content %}
+    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+            <svg class="bi me-2" width="30" height="24">
+                <use xlink:href="/exchange-rates"/>
+            </svg>
+            <span class="fs-5 fw-semibold">Links</span>
+        </a>
+        <div class="list-group list-group-flush border-bottom scrollarea">
+            <a href="/exchange-rates" class="list-group-item list-group-item-action active py-3 lh-tight"
+               aria-current="true">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Курси валют</strong>
+                    <small>сьогодні</small>
+                </div>
+                <div class="col-10 mb-1 small">Актуальні курси валют</div>
+            </a>
+            <a href="/calculator" class="list-group-item list-group-item-action py-3 lh-tight">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Калькулятор валют</strong>
+                    <small class="text-muted">сьогодні</small>
+                </div>
+                <div class="col-10 mb-1 small">Порахуйте найкращий варіант обміну валюти</div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

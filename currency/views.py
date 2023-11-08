@@ -9,6 +9,10 @@ from .forms import CalculatorForm
 from .models import Rate
 
 
+def intro(request):
+    return render(request, "intro.html")
+
+
 def main(request):
     response_data = {
         "current_rates": [

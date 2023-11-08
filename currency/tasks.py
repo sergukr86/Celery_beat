@@ -14,10 +14,7 @@ def pull_rate():
         print("EUR", provider_eur.name)
 
         eur = Rate.objects.filter(
-            vendor=provider_eur.name,
-            cur_from="EUR",
-            cur_to="UAH",
-            date=date
+            vendor=provider_eur.name, cur_from="EUR", cur_to="UAH", date=date
         )
         if not eur.exists():
             euro_rate = provider_eur.get_rate()

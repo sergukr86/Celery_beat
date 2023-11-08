@@ -2,7 +2,7 @@
 {% block content %}
     {% csrf_token %}
 <ul class="list-group">
-"
+
     {% for current_rate in current_rates %}
         <li class="list-group-item">
             ID: {{ current_rate.id }}
