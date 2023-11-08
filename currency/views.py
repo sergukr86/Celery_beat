@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib import messages
 from django.db.models import Max
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -20,11 +21,11 @@ def main(request):
                 "sell": rate.sell,
                 "buy": rate.buy,
             }
-            for rate in Rate.objects.all()
+            for rate in Rate.objects.order_by("date", "buy").all()
         ]
     }
 
-    return JsonResponse(response_data)
+    return render(request, "main.html", context=response_data)
 
 
 def calculator(request):
@@ -46,14 +47,18 @@ def calculator(request):
         bank = provider.get(sell=max_rate)
         # calculate answer
         answer = float(amount) * float(max_rate)
-        return render(request,"calculator.html",
-                      {"answer": answer,
-                       "form": form,
-                       "amount": amount,
-                       "max_rate": max_rate,
-                       "currency_from": currency_from,
-                       "currency_to": currency_to,
-                       "bank": bank
-        })
+        messages.success(request, f"BANK: {bank.vendor}")
+        return render(
+            request,
+            "calculator.html",
+            {
+                "answer": answer,
+                "form": form,
+                "amount": amount,
+                "max_rate": max_rate,
+                "currency_from": currency_from,
+                "currency_to": currency_to,
+                "bank": bank,
+            },
+        )
     return redirect("calculator")
-

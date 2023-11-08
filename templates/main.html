@@ -1,6 +1,19 @@
-<h2>Hello</h2>
-<form action="" method="post">
+{% extends "base.html" %}
+{% block content %}
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
+<ul class="list-group">
+"
+    {% for current_rate in current_rates %}
+        <li class="list-group-item">
+            ID: {{ current_rate.id }}
+            Date: {{ current_rate.date }}
+            From: {{ current_rate.currency_a }}
+            To: {{ current_rate.currency_b }}
+            Sell: {{ current_rate.sell | floatformat:2 }}
+            Buy: {{ current_rate.buy | floatformat:2 }}
+            Vendor: {{ current_rate.vendor }}<br>
+        </li>
+    {% endfor %}
+
+</ul>
+{% endblock %}

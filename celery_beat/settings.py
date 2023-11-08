@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "currency.apps.CurrencyConfig",
     "django_celery_beat",
+    "bootstrap5",
 ]
 
 MIDDLEWARE = [

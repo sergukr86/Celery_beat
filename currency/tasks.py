@@ -10,8 +10,14 @@ def pull_rate():
     date = datetime.date.today()
     for provider_class in PROVIDERS:
         provider_eur = provider_class("EUR", "UAH")
+
+        print("EUR", provider_eur.name)
+
         eur = Rate.objects.filter(
-            vendor=provider_eur.name, cur_from="EUR", cur_to="UAH", date=date
+            vendor=provider_eur.name,
+            cur_from="EUR",
+            cur_to="UAH",
+            date=date
         )
         if not eur.exists():
             euro_rate = provider_eur.get_rate()
@@ -26,6 +32,8 @@ def pull_rate():
             print(eur)
 
         provider_usd = provider_class("USD", "UAH")
+        print("USD", provider_usd.name)
+
         usd = Rate.objects.filter(
             vendor=provider_usd.name,
             cur_from="USD",
@@ -42,4 +50,4 @@ def pull_rate():
                 sell=usd_rate.sell,
                 date=date,
             )
-            print(usd)
+            print(usd.vendor)
