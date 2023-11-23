@@ -2,7 +2,9 @@ from django import forms
 
 
 CHOICES = [("EUR", "EUR"), ("USD", "USD")]
-UAH = [("UAH", "UAH"),]
+UAH = [
+    ("UAH", "UAH"),
+]
 
 
 class CalculatorForm(forms.Form):

@@ -1,7 +1,14 @@
+import responses
 
-from currency.provider import MonoProvider, PrivatbankProvider, NacbankProvider, VkurseProvider, SellBuy
+from currency.provider import (
+    MonoProvider,
+    PrivatbankProvider,
+    NacbankProvider,
+    VkurseProvider,
+    SellBuy,
+)
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 
 def test_mono_provider():
@@ -13,16 +20,19 @@ def test_mono_provider():
     rate_mocked.assert_called()
 
 
+@responses.activate
 def test_mono_with_data():
-    provider = MonoProvider("USD", "UAH")
-    with patch("currency.provider.requests.get") as mocked_get:
-        mocked_get().json.return_value = [
+    responses.get(
+        "https://api.monobank.ua/bank/currency",
+        json=[
             {
                 "currencyCodeA": 840,
                 "currencyCodeB": 980,
-                "rateBuy": 28.0,
-                "rateSell": 27.0,
+                "rateBuy": 38.0,
+                "rateSell": 37.0,
             }
-        ]
-        rate = provider.get_rate()
-    assert rate == SellBuy(sell=27.0, buy=28.0)
+        ],
+    )
+    provider = MonoProvider("USD", "UAH")
+    rate = provider.get_rate()
+    assert rate == SellBuy(sell=37.0, buy=38.0)
