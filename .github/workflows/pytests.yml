@@ -10,6 +10,6 @@ jobs:
         uses: actions/checkout@master
 
       - name: Install dependencies and run tests
-        run: |
+        run:
           pip install -r requirements.txt
           pytest
