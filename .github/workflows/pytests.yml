@@ -11,5 +11,5 @@ jobs:
 
       - name: Install dependencies and run tests
         run: |
-          pip install --quiet -r requirements.txt
+          pip install -r requirements.txt
           pytest

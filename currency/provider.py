@@ -97,7 +97,7 @@ class VkurseProvider(ProviderBase):
         response = requests.get(url)
         response.raise_for_status()
         curr_from_code = self.from_country_code[self.curr_from]
-        cources = response.json()
+        cources = response.json()[0]
         buy_rate = cources[curr_from_code]["buy"]
         sell_rate = cources[curr_from_code]["sale"]
         value = SellBuy(buy=float(buy_rate), sell=float(sell_rate))
