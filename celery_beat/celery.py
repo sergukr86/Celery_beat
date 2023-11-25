@@ -18,5 +18,5 @@ app.conf.update(
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    "add-every-10sec": {"task": "currency.tasks.pull_rate", "schedule": 10.0}
+    "add-every-10sec": {"task": "currency.tasks.pull_rate", "schedule": 1000.0}
 }

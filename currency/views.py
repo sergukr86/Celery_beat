@@ -2,30 +2,14 @@ import datetime
 
 from django.contrib import messages
 from django.db.models import Max
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from .forms import CalculatorForm
 from .models import Rate
 
 
-def main(request):
-    response_data = {
-        "current_rates": [
-            {
-                "id": rate.id,
-                "date": rate.date,
-                "vendor": rate.vendor,
-                "currency_a": rate.cur_from,
-                "currency_b": rate.cur_to,
-                "sell": rate.sell,
-                "buy": rate.buy,
-            }
-            for rate in Rate.objects.order_by("date", "buy").all()
-        ]
-    }
-
-    return render(request, "main.html", context=response_data)
+def intro(request):
+    return render(request, "intro.html")
 
 
 def calculator(request):
@@ -46,7 +30,7 @@ def calculator(request):
         max_rate = round(provider.aggregate(max_sell=Max("sell"))["max_sell"], 3)
         bank = provider.get(sell=max_rate)
         # calculate answer
-        answer = float(amount) * float(max_rate)
+        answer = round(amount * max_rate, 2)
         messages.success(request, f"BANK: {bank.vendor}")
         return render(
             request,
@@ -62,3 +46,22 @@ def calculator(request):
             },
         )
     return redirect("calculator")
+
+
+def main(request):
+    response_data = {
+        "current_rates": [
+            {
+                "id": rate.id,
+                "date": rate.date,
+                "vendor": rate.vendor,
+                "currency_a": rate.cur_from,
+                "currency_b": rate.cur_to,
+                "sell": rate.sell,
+                "buy": rate.buy,
+            }
+            for rate in Rate.objects.order_by("date", "buy").all()
+        ]
+    }
+
+    return render(request, "main.html", context=response_data)
