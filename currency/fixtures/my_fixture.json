@@ -1,0 +1,26 @@
+[
+  {
+    "model": "currency.Rate",
+    "pk": 1,
+    "fields": {
+      "vendor": "monobank",
+      "cur_from": "USD",
+      "cur_to": "UAH",
+      "date": "2023-23-11",
+      "sell": 37,
+      "buy": 37
+    }
+  },
+  {
+    "model": "currency.Rate",
+    "pk": 2,
+    "fields": {
+      "vendor": "monobank",
+      "cur_from": "EUR",
+      "cur_to": "UAH",
+      "date": "2023-23-11",
+      "sell": 41,
+      "buy": 40
+    }
+  }
+]

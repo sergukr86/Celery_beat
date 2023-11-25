@@ -2,7 +2,6 @@ import datetime
 
 from django.contrib import messages
 from django.db.models import Max
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from .forms import CalculatorForm
@@ -11,25 +10,6 @@ from .models import Rate
 
 def intro(request):
     return render(request, "intro.html")
-
-
-def main(request):
-    response_data = {
-        "current_rates": [
-            {
-                "id": rate.id,
-                "date": rate.date,
-                "vendor": rate.vendor,
-                "currency_a": rate.cur_from,
-                "currency_b": rate.cur_to,
-                "sell": rate.sell,
-                "buy": rate.buy,
-            }
-            for rate in Rate.objects.order_by("date", "buy").all()
-        ]
-    }
-
-    return render(request, "main.html", context=response_data)
 
 
 def calculator(request):
@@ -66,3 +46,22 @@ def calculator(request):
             },
         )
     return redirect("calculator")
+
+
+def main(request):
+    response_data = {
+        "current_rates": [
+            {
+                "id": rate.id,
+                "date": rate.date,
+                "vendor": rate.vendor,
+                "currency_a": rate.cur_from,
+                "currency_b": rate.cur_to,
+                "sell": rate.sell,
+                "buy": rate.buy,
+            }
+            for rate in Rate.objects.order_by("date", "buy").all()
+        ]
+    }
+
+    return render(request, "main.html", context=response_data)
